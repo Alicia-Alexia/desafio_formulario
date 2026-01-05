@@ -11,14 +11,19 @@ form.addEventListener('submit', (event) => {
 
 function validarFormulario() {
     let formValido = true;
+    const valorNome = nomeInput.value.trim(); 
 
-    if (nomeInput.value.trim() === '') {
+    if (valorNome === '') {
         definirErro(nomeInput, 'O nome é obrigatório.');
         formValido = false;
-    } else {
+    } 
+    else if (valorNome.length < 2) {
+        definirErro(nomeInput, 'O nome deve ter pelo menos 2 letras.');
+        formValido = false;
+    } 
+    else {
         definirSucesso(nomeInput);
     }
-
     if (emailInput.value.trim() === '') {
         definirErro(emailInput, 'O e-mail é obrigatório.');
         formValido = false;
@@ -35,8 +40,11 @@ function validarFormulario() {
         mensagemSucesso.classList.remove('hidden');
         form.reset();
         limparEstilosVisuais();
-
-        console.log("Sucesso! Formulário limpo.");
+        limparEstilosVisuais();
+        console.log("Sucesso!");
+        timeoutId = setTimeout(() => {
+            mensagemSucesso.classList.add('hidden');
+        }, 3000);
     }
 }
 
